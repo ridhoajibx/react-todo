@@ -20,12 +20,12 @@ export default class Todolist extends Component {
             },
             {
                 text: "Todo item 4",
-                isCompleted: false
+                isCompleted: true
             }
         ]
     }
 
-    submitHandler = (e, value) => {
+    addTodo = (e, value) => {
         e.preventDefault();
         this.setState({
             todos: [
@@ -38,11 +38,20 @@ export default class Todolist extends Component {
         });
     }
 
+    editTodo = (i, value) => {
+        const todo = this.state.todos;
+        if (todo[i].isCompleted === true) {
+            alert(`todo ${todo[i].text} has been completed`);
+        } else {
+            value = todo[i].text
+            console.log(value);
+        }
+    }
+
     deleteTodo = (index) => {
-        const newState = this.state.todos;
-        newState.splice(index, 1);
-        this.setState({ todos: newState })
-        // console.log(newState);
+        const todo = this.state.todos;
+        todo.splice(index, 1);
+        this.setState({ todos: todo })
     }
     render() {
         return (
@@ -50,9 +59,9 @@ export default class Todolist extends Component {
                 <div className="container py-4">
                     <Header />
 
-                    <Todoform submitHandler={this.submitHandler} changeHandler={ this.changeHandler } />
+                    <Todoform addTodo={this.addTodo} />
 
-                    <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} />
+                    <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} editTodo={ this.editTodo } />
                 </div>
             </div>
         )

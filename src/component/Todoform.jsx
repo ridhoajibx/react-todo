@@ -16,7 +16,7 @@ export default class Todoform extends Component {
                 <div className="col-md-6 col-sm-12">
                     <div className="card">
                         <div className="card-body">
-                            <form onSubmit={ (e) => this.props.submitHandler(e, this.state.input) }>
+                            <form onSubmit={ (e) => this.props.addTodo(e, this.state.input) }>
                                 <div className="form-group">
                                     <input 
                                         type="text" 

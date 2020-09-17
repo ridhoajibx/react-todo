@@ -13,7 +13,7 @@ export default class Todos extends Component {
                                         <span>{item.text}</span>
                                         <div className="btn-group">
                                             <button className="btn btn-primary btn-sm">Complete</button>
-                                            <button className="btn btn-warning btn-sm">Edit</button>
+                                            <button onClick={ () => this.props.editTodo(index) } className="btn btn-warning btn-sm">Edit</button>
                                             <button onClick={ () => this.props.deleteTodo(index) } className="btn btn-danger btn-sm">Delete</button>
                                         </div>
                                     </li>
