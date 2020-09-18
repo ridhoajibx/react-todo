@@ -8,19 +8,23 @@ export default class Todolist extends Component {
         todos: [
             {
                 text: "Todo item 1",
-                isCompleted: false
+                isCompleted: false,
+                edit: false
             },
             {
                 text: "Todo item 2",
-                isCompleted: false
+                isCompleted: false,
+                edit: false
             },
             {
                 text: "Todo item 3",
-                isCompleted: false
+                isCompleted: false,
+                edit: false
             },
             {
                 text: "Todo item 4",
-                isCompleted: true
+                isCompleted: true,
+                edit: false
             }
         ]
     }
@@ -32,21 +36,31 @@ export default class Todolist extends Component {
                 ...this.state.todos,
                 {
                     text: value,
-                    isCompleted: false
+                    isCompleted: false,
+                    edit:false
                 }
             ]
         });
     }
 
-    editTodo = (i, value) => {
+    editTodo = (val, i) => {
         const todo = this.state.todos;
-        if (todo[i].isCompleted === true) {
-            alert(`todo ${todo[i].text} has been completed`);
+        if (val == null) {
+            todo[i].edit = true
         } else {
-            value = todo[i].text
-            console.log(value);
+            todo[i].edit = false
+            todo[i].text = val
         }
+        this.setState({ todos: todo })
     }
+
+    // setEditTodo = (i, newTodo) => {
+    //     const todo = this.state.todos;
+    //     todo.splice(i, 1, {
+    //         ...todo[i],
+    //         text: newTodo,
+    //     });
+    // }
 
     deleteTodo = (index) => {
         const todo = this.state.todos;
@@ -61,7 +75,10 @@ export default class Todolist extends Component {
 
                     <Todoform addTodo={this.addTodo} />
 
-                    <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} editTodo={ this.editTodo } />
+                    <Todos 
+                        todos={this.state.todos} 
+                        deleteTodo={this.deleteTodo} 
+                        editTodo={ this.editTodo } />
                 </div>
             </div>
         )
