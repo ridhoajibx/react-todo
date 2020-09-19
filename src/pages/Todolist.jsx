@@ -62,6 +62,17 @@ export default class Todolist extends Component {
     //     });
     // }
 
+    completeTodo = (i) => {
+        const todo = this.state.todos;
+        // console.log(todo[i].isCompleted);
+        if (todo[i].isCompleted === false) {
+            todo[i].isCompleted = true;
+        } else {
+            // alert(`todo ${todo[i].text} has been completed !`)
+            todo[i].isCompleted = false;
+        }
+    } 
+
     deleteTodo = (index) => {
         const todo = this.state.todos;
         todo.splice(index, 1);
@@ -78,7 +89,9 @@ export default class Todolist extends Component {
                     <Todos 
                         todos={this.state.todos} 
                         deleteTodo={this.deleteTodo} 
-                        editTodo={ this.editTodo } />
+                        editTodo={ this.editTodo }
+                        completeTodo={ this.completeTodo }
+                    />
                 </div>
             </div>
         )

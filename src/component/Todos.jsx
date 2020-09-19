@@ -10,7 +10,15 @@ export default class Todos extends Component {
             value:val
         })
         this.props.editTodo(null, i)
-        console.log(val);
+        // console.log(val);
+    }
+
+    completeTask(index) {
+        this.setState({
+            index
+        })
+        this.props.completeTodo(index)
+        console.log(index);
     }
     render() {
         return (
@@ -23,9 +31,9 @@ export default class Todos extends Component {
                                     <li key={ index } className="list-group-item d-flex justify-content-between align-items-center">
                                         {!todo.edit ?
                                             <>
-                                                <span>{todo.text}</span>
+                                              { todo.isCompleted === false ? <span>{todo.text}</span> : <s>{todo.text} <span role="img" aria-label="check" className="badge badge-success">✅</span></s>}
                                                 <div className="btn-group">
-                                                    <button className="btn btn-primary btn-sm">Complete</button>
+                                                    <button onClick={ () => this.completeTask(index) } className="btn btn-primary btn-sm">Complete</button>
                                                     <button onClick={ () => this.edit(todo.text, index) } className="btn btn-warning btn-sm">Edit</button>
                                                     <button onClick={ () => this.props.deleteTodo(index) } className="btn btn-danger btn-sm">Delete</button>
                                                 </div>
