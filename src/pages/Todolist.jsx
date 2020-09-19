@@ -50,18 +50,10 @@ export default class Todolist extends Component {
             todo[i].edit = true
         } else {
             todo[i].edit = false
-            todo[i].text = val
+            todo[i].text = val;
         }
         this.setState({ todos: todo })
     }
-
-    // setEditTodo = (i, newTodo) => {
-    //     const todo = this.state.todos;
-    //     todo.splice(i, 1, {
-    //         ...todo[i],
-    //         text: newTodo,
-    //     });
-    // }
 
     completeTodo = (i) => {
         const todo = this.state.todos;
