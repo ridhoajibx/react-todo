@@ -7,7 +7,7 @@ export default class Todos extends Component {
 
     edit(val, i){
         this.setState({
-            value:val
+            value:val,
         })
         this.props.editTodo(null, i)
         // console.log(val);

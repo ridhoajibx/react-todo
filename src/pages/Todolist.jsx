@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from "../component/Header";
+import SortTodos from '../component/SortTodos';
 import Todoform from "../component/Todoform";
 import Todos from "../component/Todos";
 
@@ -71,7 +72,17 @@ export default class Todolist extends Component {
             // alert(`todo ${todo[i].text} has been completed !`)
             todo[i].isCompleted = false;
         }
+        this.setState({ todos: todo })
     } 
+
+    sortTodos = () => {
+        const todo = this.state.todos;
+        todo.sort(function(a, b) {
+            return (a.isCompleted - b.isCompleted);
+        });
+        // console.log(todo);
+        this.setState({ todos: todo })
+    }
 
     deleteTodo = (index) => {
         const todo = this.state.todos;
@@ -85,6 +96,8 @@ export default class Todolist extends Component {
                     <Header />
 
                     <Todoform addTodo={this.addTodo} />
+
+                    <SortTodos sortTodos={ this.sortTodos } />
 
                     <Todos 
                         todos={this.state.todos} 
