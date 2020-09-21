@@ -17,7 +17,7 @@ export default class Todolist extends Component {
     }
 
     
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         this.setStorage();
     }
 

@@ -16,7 +16,9 @@ export default class Todo extends Component {
                 <li className="list-group-item d-flex justify-content-between align-items-center">
                     {!this.props.isEdit ?
                         <>
-                            { this.props.isCompleted === false ? <span>{this.props.text}</span> : <s>{this.props.text} <span role="img" aria-label="check" className="badge badge-success">✅</span></s>}
+                            { this.props.isCompleted === false ? 
+                            <span>{this.props.text}</span> : 
+                            <s>{this.props.text} <span role="img" aria-label="check" className="badge badge-success">✅</span></s>}
                             <div className="btn-group">
                                 <button onClick={() => this.props.completeTodo(this.props.index)} className="btn btn-primary btn-sm">Complete</button>
                                 <button onClick={() => this.props.editTodo(this.props.index, this.props.text)} className="btn btn-warning btn-sm">Edit</button>
