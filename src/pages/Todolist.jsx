@@ -6,53 +6,58 @@ import Todos from "../component/Todos";
 
 export default class Todolist extends Component {
     state = {
-        todos: [
-            {
-                text: "Todo item 1",
-                isCompleted: false,
-                edit: false
-            },
-            {
-                text: "Todo item 2",
-                isCompleted: false,
-                edit: false
-            },
-            {
-                text: "Todo item 3",
-                isCompleted: false,
-                edit: false
-            },
-            {
-                text: "Todo item 4",
-                isCompleted: true,
-                edit: false
-            }
-        ]
+        todos: [],
+        input: "",
+        isCompleted: false,
+        isEdit: false,
     }
 
-    addTodo = (e, value) => {
+    componentDidMount () {
+        this.getStorage()
+    }
+
+    
+    componentDidUpdate(prevProps, prevState) {
+        this.setStorage();
+    }
+
+    onChangeInput = (e) => {
         e.preventDefault();
         this.setState({
-            todos: [
-                ...this.state.todos,
+            input: e.target.value,
+        });
+    }
+    
+    addTodo = (e) => {
+        e.preventDefault();
+        this.setState({
+            todos: [...this.state.todos,
                 {
-                    text: value,
-                    isCompleted: false,
-                    edit:false
+                    text: this.state.input,
+                    isCompleted: this.state.isCompleted,
+                    isEdit: this.state.isEdit
                 }
-            ]
+            ],
+            input: ""
         });
     }
 
-    editTodo = (val, i) => {
-        const todo = this.state.todos;
-        if (val == null) {
-            todo[i].edit = true
+    editTodo = (i, val) => {
+        let todos = this.state.todos;
+        if (todos[i].isEdit === false) {
+            todos[i].isEdit = true;
+            todos[i].text = val
         } else {
-            todo[i].edit = false
-            todo[i].text = val;
+            todos[i].isEdit = false;
+            todos[i].text = val
         }
-        this.setState({ todos: todo })
+        this.setState({ todos : todos})
+    }
+
+    deleteTodo = (i) => {
+        let todos = this.state.todos;
+        todos.splice(i, 1);
+        this.setState({ todos : todos })
     }
 
     completeTodo = (i) => {
@@ -65,35 +70,47 @@ export default class Todolist extends Component {
             todo[i].isCompleted = false;
         }
         this.setState({ todos: todo })
-    } 
+    }
 
     sortTodos = () => {
         const todo = this.state.todos;
-        todo.sort(function(a, b) {
-            return (a.isCompleted - b.isCompleted);
+        todo.sort(function (a, b) {
+            return a.isCompleted - b.isCompleted;
         });
         // console.log(todo);
         this.setState({ todos: todo })
     }
 
-    deleteTodo = (index) => {
-        const todo = this.state.todos;
-        todo.splice(index, 1);
-        this.setState({ todos: todo })
+    getStorage = () => {
+        let storageTodo = JSON.parse(localStorage.getItem("todos"));
+        if (!storageTodo) {
+            storageTodo = [];
+        }
+        this.setState({ todos: storageTodo })
     }
+    
+    setStorage = () => {
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    };
+
     render() {
         return (
             <div>
                 <div className="container py-4">
                     <Header />
 
-                    <Todoform addTodo={this.addTodo} />
+                    <Todoform 
+                        value={ this.state.input } 
+                        addTodo={ this.addTodo } 
+                        onChangeInput={ this.onChangeInput }
+                        edit={this.props.setValue}
+                    />
 
-                    <SortTodos sortTodos={ this.sortTodos } />
+                    <SortTodos sortTodos={this.sortTodos} />
 
-                    <Todos 
-                        todos={this.state.todos} 
-                        deleteTodo={this.deleteTodo} 
+                    <Todos
+                        todos={ this.state.todos }
+                        deleteTodo={ this.deleteTodo }
                         editTodo={ this.editTodo }
                         completeTodo={ this.completeTodo }
                     />

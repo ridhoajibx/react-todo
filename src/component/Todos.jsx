@@ -1,25 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Todo from './Todo';
 
-export default class Todos extends Component {
-    state = {
-        value: "",
-    }
-
-    edit(val, i){
-        this.setState({
-            value : val
-        })
-        this.props.editTodo(null, i)
-        // console.log(val);
-    }
-
-    completeTask(index) {
-        this.setState({
-            index
-        })
-        this.props.completeTodo(index)
-        console.log(index);
-    }
+class Todos extends Component {
     render() {
         return (
             <div className="row justify-content-center">
@@ -27,36 +9,33 @@ export default class Todos extends Component {
                     <div className="card">
                         <div className="card-body">
                             <ul className="list-group">
-                                {this.props.todos.map((todo, index) => (
-                                    <li key={ index } className="list-group-item d-flex justify-content-between align-items-center">
-                                        {!todo.edit ?
-                                            <>
-                                              { todo.isCompleted === false ? <span>{todo.text}</span> : <s>{todo.text} <span role="img" aria-label="check" className="badge badge-success">✅</span></s>}
-                                                <div className="btn-group">
-                                                    <button onClick={ () => this.completeTask(index) } className="btn btn-primary btn-sm">Complete</button>
-                                                    <button onClick={ () => this.edit(todo.text, index) } className="btn btn-warning btn-sm">Edit</button>
-                                                    <button onClick={ () => this.props.deleteTodo(index) } className="btn btn-danger btn-sm">Delete</button>
-                                                </div>
-                                            </>
-                                            :
-                                            <>
-                                                <input 
-                                                    className="form-control form-control-sm" 
-                                                    type="text" 
-                                                    value={ this.state.value } 
-                                                    onChange={ (e) => this.setState({ value: e.target.value }) } 
-                                                    autoFocus
-                                                />
-                                                <button onClick={ () => this.props.editTodo( this.state.value, index ) } className="btn btn-warning btn-sm ml-2">Change</button>
-                                            </>
-                                        }
-                                    </li>
-                                ))}
+                            {this.props.todos.length > 0 &&
+                                this.props.todos.map((todo, index) => {
+                                return (
+                                    <Todo
+                                    key={ index }
+                                    text={todo.text}
+                                    isCompleted={todo.isCompleted}
+                                    isEdit={ todo.isEdit }
+                                    index={index}
+                                    deleteTodo={ this.props.deleteTodo }
+                                    editTodo={ this.props.editTodo }
+                                    completeTodo={ this.props.completeTodo }
+                                    />
+                                );
+                                })}
+                            {this.props.todos.length === 0 && (
+                                <div className="text-center font-weight-bold">
+                                    You don't have todos on the list!
+                                </div>
+                            )}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
+
+export default Todos;
