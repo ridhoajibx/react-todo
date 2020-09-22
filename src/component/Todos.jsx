@@ -9,26 +9,44 @@ class Todos extends Component {
                     <div className="card">
                         <div className="card-body">
                             <ul className="list-group">
-                            {this.props.todos.length > 0 &&
-                                this.props.todos.map((todo, index) => {
-                                return (
-                                    <Todo
-                                    key={ index }
-                                    text={todo.text}
-                                    isCompleted={todo.isCompleted}
-                                    isEdit={ todo.isEdit }
-                                    index={index}
-                                    deleteTodo={ this.props.deleteTodo }
-                                    editTodo={ this.props.editTodo }
-                                    completeTodo={ this.props.completeTodo }
-                                    />
-                                );
-                                })}
-                            {this.props.todos.length === 0 && (
-                                <div className="text-center font-weight-bold">
-                                    You don't have todos on the list!
-                                </div>
-                            )}
+                                {/* {this.props.todos.length > 0 &&
+                                    
+                                }
+                                {this.props.todos.length === 0 && (
+                                    <div className="text-center font-weight-bold">
+                                        You don't have todos on the list!
+                                    </div>
+                                )} */}
+
+                                {this.props.filtered ?
+                                    this.props.filterTodos.map((todo, index) => (
+                                        <Todo
+                                            key={index}
+                                            text={todo.text}
+                                            isCompleted={todo.isCompleted}
+                                            isEdit={todo.isEdit}
+                                            index={index}
+                                            deleteTodo={this.props.deleteTodo}
+                                            editTodo={this.props.editTodo}
+                                            completeTodo={this.props.completeTodo}
+                                        />
+                                    ))
+                                    :
+                                    this.props.todos.map((todo, index) => (
+                                        <Todo
+                                            key={index}
+                                            text={todo.text}
+                                            isCompleted={todo.isCompleted}
+                                            isEdit={todo.isEdit}
+                                            index={index}
+                                            deleteTodo={this.props.deleteTodo}
+                                            editTodo={this.props.editTodo}
+                                            completeTodo={this.props.completeTodo}
+                                        />
+                                    ))
+                                }
+
+
                             </ul>
                         </div>
                     </div>
