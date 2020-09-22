@@ -19,26 +19,26 @@ class Todos extends Component {
                                 )} */}
 
                                 {this.props.filtered ?
-                                    this.props.filterTodos.map((todo, index) => (
+                                    this.props.filterTodos.map((todo) => (
                                         <Todo
-                                            key={index}
+                                            key={ todo.id }
                                             text={todo.text}
                                             isCompleted={todo.isCompleted}
                                             isEdit={todo.isEdit}
-                                            index={index}
+                                            index={todo.id}
                                             deleteTodo={this.props.deleteTodo}
                                             editTodo={this.props.editTodo}
                                             completeTodo={this.props.completeTodo}
                                         />
                                     ))
                                     :
-                                    this.props.todos.map((todo, index) => (
+                                    this.props.todos.map((todo) => (
                                         <Todo
-                                            key={index}
+                                            key={ todo.id }
                                             text={todo.text}
                                             isCompleted={todo.isCompleted}
                                             isEdit={todo.isEdit}
-                                            index={index}
+                                            index={todo.id}
                                             deleteTodo={this.props.deleteTodo}
                                             editTodo={this.props.editTodo}
                                             completeTodo={this.props.completeTodo}

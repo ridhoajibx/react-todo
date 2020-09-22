@@ -9,10 +9,10 @@ export default class Todolist extends Component {
     state = {
         todos: [],
         input: "",
-        isCompleted: false,
         isEdit: false,
         filterTodos: [],
         filtered: false,
+        displaydata: [],
     }
 
     componentDidMount() {
@@ -36,8 +36,9 @@ export default class Todolist extends Component {
         this.setState({
             todos: [...this.state.todos,
             {
+                id: Math.random(),
                 text: this.state.input,
-                isCompleted: this.state.isCompleted,
+                isCompleted: false,
                 isEdit: this.state.isEdit
             }
             ],
@@ -46,34 +47,65 @@ export default class Todolist extends Component {
     }
 
     editTodo = (i, val) => {
-        let todos = this.state.todos;
-        console.log(todos[i]);
-        if (todos[i].isEdit === false) {
-            todos[i].isEdit = true;
-            todos[i].text = val
-        } else {
-            todos[i].isEdit = false;
-            todos[i].text = val
-        }
-        this.setState({ todos: todos })
+        // old get by index
+        // let todos = this.state.todos;
+        // console.log(todos[i]);
+        // if (todos[i].isEdit === false) {
+        //     todos[i].isEdit = true;
+        //     todos[i].text = val
+        // } else {
+        //     todos[i].isEdit = false;
+        //     todos[i].text = val
+        // }
+        // this.setState({ todos: todos })
+
+        // new get by id
+        this.setState({ 
+            todos: [
+                ...this.state.todos.map((todo) => {
+                    if(todo.id === i) {
+                        todo.isEdit = !todo.isEdit
+                        todo.text = val
+                    }
+                    return todo;
+                })
+            ]
+         })
+
     }
 
     deleteTodo = (i) => {
-        let todos = this.state.todos;
-        todos.splice(i, 1);
-        this.setState({ todos: todos })
+        // let todos = this.state.todos.filter((todo) => todo.id !== i);;
+        // todos.splice(i, 1);
+        // this.setState({ todos: todos })
+
+        this.setState({ 
+            todos: [
+                ...this.state.todos.filter((todo) => todo.id !== i)
+            ]
+         })
     }
 
     completeTodo = (i) => {
-        let todo = this.state.todos;
-        // console.log(todo[i].isCompleted);
-        if (todo[i].isCompleted === false) {
-            todo[i].isCompleted = true;
-        } else {
-            // alert(`todo ${todo[i].text} has been completed !`)
-            todo[i].isCompleted = false;
-        }
-        this.setState({ todos: todo })
+        // let todo = this.state.todos;
+        // // console.log(todo[i].isCompleted);
+        // if (todo[i].isCompleted === false) {
+        //     todo[i].isCompleted = true;
+        // } else {
+        //     // alert(`todo ${todo[i].text} has been completed !`)
+        //     todo[i].isCompleted = false;
+        // }
+        // this.setState({ todos: todo })
+        this.setState({ 
+            todos: [
+                ...this.state.todos.map((todo) => {
+                    if(todo.id === i) {
+                        todo.isCompleted = !todo.isCompleted
+                    }
+                    return todo;
+                })
+            ]
+         })
     }
 
     sortTodos = () => {
@@ -105,7 +137,7 @@ export default class Todolist extends Component {
                 filtered: false
             });
         }
-        console.log(filter);
+        // console.log(filter);
         //kalo sudah di filter tampilin state filteredTodo bukan todo
     }
 
@@ -126,14 +158,12 @@ export default class Todolist extends Component {
             <div>
                 <div className="container py-4">
                     <Header />
-
                     <Todoform
                         value={this.state.input}
                         addTodo={this.addTodo}
                         onChangeInput={this.onChangeInput}
                         edit={this.props.setValue}
                     />
-
                     <FilterTodos filterAllTodos={this.filterAllTodos} />
 
                     <SortTodos sortTodos={this.sortTodos} />
