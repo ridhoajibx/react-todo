@@ -21,7 +21,7 @@ export default class Todo extends Component {
                             <s>{this.props.text} <span role="img" aria-label="check" className="badge badge-success">✅</span></s>}
                             <div className="btn-group">
                                 <button onClick={() => this.props.completeTodo(this.props.index)} className="btn btn-primary btn-sm">Complete</button>
-                                <button onClick={() => this.props.editTodo(this.props.index, this.props.text)} className="btn btn-warning btn-sm">Edit</button>
+                                <button onClick={() => this.props.editTodo(this.props.index)} className="btn btn-warning btn-sm">Edit</button>
                                 <button onClick={() => this.props.deleteTodo(this.props.index)} className="btn btn-danger btn-sm">Delete</button>
                             </div>
                         </>

@@ -47,6 +47,7 @@ export default class Todolist extends Component {
 
     editTodo = (i, val) => {
         let todos = this.state.todos;
+        console.log(todos[i]);
         if (todos[i].isEdit === false) {
             todos[i].isEdit = true;
             todos[i].text = val
