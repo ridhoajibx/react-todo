@@ -12,7 +12,6 @@ export default class Todolist extends Component {
         isEdit: false,
         filterTodos: [],
         filtered: false,
-        displaydata: [],
     }
 
     componentDidMount() {
@@ -60,17 +59,17 @@ export default class Todolist extends Component {
         // this.setState({ todos: todos })
 
         // new get by id
-        this.setState({ 
+        this.setState({
             todos: [
                 ...this.state.todos.map((todo) => {
-                    if(todo.id === i) {
+                    if (todo.id === i) {
                         todo.isEdit = !todo.isEdit
                         todo.text = val
                     }
                     return todo;
                 })
             ]
-         })
+        })
 
     }
 
@@ -78,12 +77,11 @@ export default class Todolist extends Component {
         // let todos = this.state.todos.filter((todo) => todo.id !== i);;
         // todos.splice(i, 1);
         // this.setState({ todos: todos })
-
-        this.setState({ 
-            todos: [
-                ...this.state.todos.filter((todo) => todo.id !== i)
-            ]
-         })
+        let items = [...this.state.todos.filter((todo) => todo.id !== i)]
+        this.setState({
+            filterTodos: items,
+            todos: items,
+        })
     }
 
     completeTodo = (i) => {
@@ -96,16 +94,16 @@ export default class Todolist extends Component {
         //     todo[i].isCompleted = false;
         // }
         // this.setState({ todos: todo })
-        this.setState({ 
+        this.setState({
             todos: [
                 ...this.state.todos.map((todo) => {
-                    if(todo.id === i) {
+                    if (todo.id === i) {
                         todo.isCompleted = !todo.isCompleted
                     }
                     return todo;
                 })
             ]
-         })
+        })
     }
 
     sortTodos = () => {
@@ -118,22 +116,19 @@ export default class Todolist extends Component {
     }
 
     filterAllTodos = (val) => {
-        let filter = []
         if (val === "completed") {
-            filter = this.state.todos.filter((todos) => (todos.isCompleted === true)); //filter disini
-            this.setState({ 
-                filterTodos: filter, 
+            this.setState({
+                filterTodos: this.state.todos.filter((todos) => (todos.isCompleted === true)),
                 filtered: true
-            });
+            })
         } else if (val === "notcomplete") {
-            filter = this.state.todos.filter((todos) => (todos.isCompleted === false));
-            this.setState({ 
-                filterTodos: filter, 
+            this.setState({
+                filterTodos: this.state.todos.filter((todos) => (todos.isCompleted === false)),
                 filtered: true
-            });
+            })
         } else if (val === "all") {
-            this.setState({ 
-                filterTodos: filter, 
+            this.setState({
+                filterTodos: this.state.todos,
                 filtered: false
             });
         }
@@ -173,8 +168,8 @@ export default class Todolist extends Component {
                         deleteTodo={this.deleteTodo}
                         editTodo={this.editTodo}
                         completeTodo={this.completeTodo}
-                        filterTodos={ this.state.filterTodos }
-                        filtered={ this.state.filtered }
+                        filterTodos={this.state.filterTodos}
+                        filtered={this.state.filtered}
                     />
                 </div>
             </div>
