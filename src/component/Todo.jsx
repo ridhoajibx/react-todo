@@ -34,7 +34,7 @@ export default class Todo extends Component {
                                 onChange={(e) => this.setState({ value: e.target.value })}
                                 autoFocus
                             />
-                            <div className="btn-group">
+                            <div className="btn-group ml-1">
                                 <button type="submit" onClick={() => this.setValue(this.props.index, this.state.value)} className="btn btn-warning btn-sm">Change</button>
                             </div>
                         </>

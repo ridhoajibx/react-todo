@@ -78,9 +78,10 @@ export default class Todolist extends Component {
         // todos.splice(i, 1);
         // this.setState({ todos: todos })
         let items = [...this.state.todos.filter((todo) => todo.id !== i)]
+        let items1 = [...this.state.filterTodos.filter((todo) => todo.id !== i)]
         this.setState({
-            filterTodos: items,
             todos: items,
+            filterTodos: items1,
         })
     }
 
@@ -129,7 +130,7 @@ export default class Todolist extends Component {
         } else if (val === "all") {
             this.setState({
                 filterTodos: this.state.todos,
-                filtered: false
+                filtered:false
             });
         }
         // console.log(filter);

@@ -45,8 +45,6 @@ class Todos extends Component {
                                         />
                                     ))
                                 }
-
-
                             </ul>
                         </div>
                     </div>
